@@ -249,6 +249,8 @@ with t3:
     else:
         st.info("No database file found yet.")
 
+###########################################################
+# --- TAB 4: REVISION GENERATOR (SYNCED + PREVIEW) ---
 # --- TAB 4: REVISION GENERATOR (FORCED UI UPDATE) ---
 with t4:
     st.subheader("📝 Handout Creator")
@@ -289,6 +291,7 @@ with t4:
                 st.download_button("📥 Download Handout", bio.getvalue(), "Revision_Sheet.docx")
     else:
         st.warning("Please save some snippets first!")
+##########################################################
 
 # TAB 5: DIAGRAM LIBRARY
 with t5:

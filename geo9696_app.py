@@ -111,7 +111,7 @@ def analyze_predictions(current_year):
 
 # --- 3. STREAMLIT INTERFACE ---
 st.set_page_config(page_title="Geography 9696 Tutor Portal", layout="wide")
-st.title("🌍 Geography 9696 PYP Resources Portal")
+st.title("🌍 Geography 9696 PYP Portal")
 
 # SIDEBAR: MANAGEMENT
 # --- 1. Put the Password box in the Sidebar ---
@@ -349,4 +349,5 @@ with t6:
         st.info("Priority is based on how long it has been since a topic was last saved to your Case Study Bank.")
     else:
         st.warning("Save snippets to the Case Study Bank to enable prediction analysis.")
+
 

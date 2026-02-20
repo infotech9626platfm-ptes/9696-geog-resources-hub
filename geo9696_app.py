@@ -114,7 +114,12 @@ st.set_page_config(page_title="Geography 9696 Tutor Portal", layout="wide")
 st.title("🌍 Geography 9696 Official Tutor Resource Platform")
 
 # SIDEBAR: MANAGEMENT
+# --- 1. Put the Password box in the Sidebar ---
 with st.sidebar:
+    st.divider()
+    admin_key = st.text_input("Admin Key (to delete)", type="password")
+    # Change 'geog123' to your preferred delete password
+    is_authorized = (admin_key == "geog123")
     st.header("📤 Resource Management")
     u_y = st.number_input("Exam Year", 2018, 2030, 2026)
     u_s = st.selectbox("Exam Session", ["MARCH (m)", "JUNE (s)", "NOVEMBER (w)"])
@@ -181,8 +186,6 @@ with t1:
                     st.toast(f"Saved {s_topic}!")
 
             with c2:
-                # NEW: Tiny button for Answer Scheme
-                # Matches your filename: 9696_s25_ms_11.pdf
                 year_short = str(item['src'].split()[0])[-2:]
                 ms_fn = f"{SUBJECT_CODE}_{item['session']}{year_short}_ms_{s_v}.pdf"
                 ms_path = os.path.join(MS_DIR, ms_fn)
@@ -249,9 +252,6 @@ with t3:
     else:
         st.info("No database file found yet.")
 
-###########################################################
-# --- TAB 4: REVISION GENERATOR (SYNCED + PREVIEW) ---
-# --- TAB 4: REVISION GENERATOR (FORCED UI UPDATE) ---
 with t4:
     st.subheader("📝 Handout Creator")
     if os.path.exists(GALLERY_FILE):
@@ -291,7 +291,6 @@ with t4:
                 st.download_button("📥 Download Handout", bio.getvalue(), "Revision_Sheet.docx")
     else:
         st.warning("Please save some snippets first!")
-##########################################################
 
 # TAB 5: DIAGRAM LIBRARY
 with t5:
@@ -314,21 +313,26 @@ with t5:
     files = os.listdir(DIAGRAM_DIR)
     if files:
         cols = st.columns(3)
+        # Your existing Line 325 loop
         for i, f_name in enumerate(files):
             with cols[i % 3]:
                 img_path = os.path.join(DIAGRAM_DIR, f_name)
                 st.image(img_path)
 
-                # Column split for label and delete button
                 c_lab, c_del = st.columns([0.8, 0.2])
                 with c_lab:
                     st.caption(f_name.replace("_", " ").split(".")[0])
+
                 with c_del:
-                    # Logic to delete the file from your computer
-                    if st.button("🗑️", key=f"del_diag_{i}"):
-                        os.remove(img_path)
-                        st.toast(f"Deleted {f_name}")
-                        st.rerun()
+                    # NEW AUTHORIZATION LOGIC REPLACING LINES 335-339
+                    if is_authorized:
+                        if st.button("🗑️", key=f"del_diag_{i}"):
+                            os.remove(img_path)
+                            st.toast(f"Deleted {f_name}")
+                            st.rerun()
+                    else:
+                        # Shows a locked icon if password isn't entered
+                        st.button("🔒", key=f"lock_{i}", disabled=True, help="Enter Admin Key in sidebar to delete")
     else:
         st.info("No diagrams uploaded yet.")
 

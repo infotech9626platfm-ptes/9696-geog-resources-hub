@@ -119,7 +119,7 @@ with st.sidebar:
     st.divider()
     admin_key = st.text_input("Admin Key (to delete)", type="password")
     # Change 'geog123' to your preferred delete password
-    is_authorized = (admin_key == "geog123")
+    is_authorized = (admin_key == "9696Admin")
     st.header("📤 Resource Management")
     u_y = st.number_input("Exam Year", 2018, 2030, 2026)
     u_s = st.selectbox("Exam Session", ["MARCH (m)", "JUNE (s)", "NOVEMBER (w)"])
@@ -375,6 +375,7 @@ st.markdown(
 )
 
 # --- FOOTER & VISITOR COUNTER ---
+
 
 
 
